@@ -25,7 +25,7 @@ apply plugin: 'com.google.cloud.tools.jib'
 group = 'springio'
 
 bootJar {
-    baseName = 'gs-spring-boot-docker'
+    baseName = 'christmas-edition-docker'
     version =  '0.1.0'
 }
 
