@@ -10,7 +10,7 @@
          Any data here should only be inserted to the db to assist development
     -->
 
-    <changeSet author="tony.cheng" context="development" id="reindeer-data">
+    <changeSet author="Avinash" context="development" id="reindeer-data">
         <validCheckSum>ANY</validCheckSum>
         <loadData file="db/data/reindeer.csv" tableName="reindeer">
             <column header="id" name="id" type="SKIP"/>

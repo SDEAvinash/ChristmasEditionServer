@@ -1,0 +1,38 @@
+#!groovy
+pipeline {
+    agent {
+        node {
+            label 'maven-java8'
+        }
+    }
+
+    options {
+        timestamps()
+        timeout(time: 20, unit: 'MINUTES')
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                configFileProvider([configFile(fileId: '7b69c135-f577-45f9-8638-71b7cf91ffd3', targetLocation: '/home/jenkins/.m2/settings.xml')]) {
+                    sh 'mvn -V -B -U clean'
+                    sh 'mvn -B -U package -Dmaven.test.skip=true'
+                }
+            }
+        }
+
+        stage('Sonar Branch Scan') {
+            when { not { changeRequest() } }
+            steps {
+                withSonarQubeEnv('SonarCloud') {
+                    sh 'mvn -B -U jacoco:report'
+                    sh """
+          mvn -B -V -U sonar:sonar \
+          -Dsonar.projectKey=spring-boot \
+          -Dsonar.organization=qhrtech \
+          """
+                }
+            }
+        }
+}
+}
