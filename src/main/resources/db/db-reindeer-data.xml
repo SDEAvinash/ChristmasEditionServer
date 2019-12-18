@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- All changesets here should be created on the context of development (coding and testing).
+         Any data here should only be inserted to the db to assist development
+    -->
+
+    <changeSet author="tony.cheng" context="development" id="reindeer-data">
+        <validCheckSum>ANY</validCheckSum>
+        <loadData file="db/data/reindeer.csv" tableName="reindeer">
+            <column header="id" name="id" type="SKIP"/>
+            <column header="name" name="name" type="STRING"/>
+        </loadData>
+        <rollback>
+            <delete tableName="reindeer"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
